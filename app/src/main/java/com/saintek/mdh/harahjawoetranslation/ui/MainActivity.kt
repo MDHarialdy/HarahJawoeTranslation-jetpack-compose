@@ -1,23 +1,29 @@
-package com.saintek.mdh.harahjawoetranslation
+package com.saintek.mdh.harahjawoetranslation.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.saintek.mdh.harahjawoetranslation.ui.component.BottomNavigation
-import com.saintek.mdh.harahjawoetranslation.ui.home.HomeActivity
-import com.saintek.mdh.harahjawoetranslation.ui.onBoarding.OnBoardingActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.saintek.mdh.harahjawoetranslation.ui.theme.HarahJawoeTranslationTheme
 
 class MainActivity : ComponentActivity() {
+    private val mainViewModel: MainViewModel by viewModels{
+        ViewModelFactory.getInstance(this)
+    }
+    @OptIn(ExperimentalPermissionsApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        installSplashScreen().apply {
+            setKeepOnScreenCondition{mainViewModel.isFirstTime.value}
+        }
+
         setContent {
             HarahJawoeTranslationTheme {
                 // A surface container using the 'background' color from the theme
@@ -25,17 +31,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    BottomNavigation()
+                    HarahJawoeApplication()
                 }
             }
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    HarahJawoeTranslationTheme {
-        BottomNavigation()
-    }
-}

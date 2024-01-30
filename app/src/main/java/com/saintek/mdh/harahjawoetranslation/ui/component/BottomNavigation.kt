@@ -1,7 +1,5 @@
 package com.saintek.mdh.harahjawoetranslation.ui.component
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,11 +12,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -35,22 +31,52 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.saintek.mdh.harahjawoetranslation.ui.camera.CameraActivity
 import com.saintek.mdh.harahjawoetranslation.ui.history.HistoryActivity
 import com.saintek.mdh.harahjawoetranslation.ui.home.HomeActivity
 import com.saintek.mdh.harahjawoetranslation.ui.record.RecordActivity
+import com.saintek.mdh.harahjawoetranslation.ui.theme.Brown
+import com.saintek.mdh.harahjawoetranslation.ui.theme.Light_yellow
 
 
 @Composable
-fun BottomNavigation() {
-    val navController = rememberNavController()
-    Scaffold(
-        bottomBar = {BottomBar(navController = navController)},
+fun BottomBar(navController: NavHostController) {
+    val screens = listOf(
+        NavbarItem.Home,
+        NavbarItem.Camera,
+        NavbarItem.History,
+        NavbarItem.Record
+    )
+
+    val navStackBackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navStackBackEntry?.destination
+
+    Card(
+        shape = RoundedCornerShape(topEnd = 0.dp, topStart = 0.dp),
+        colors = CardDefaults.cardColors(Brown),
+        modifier = Modifier
     ) {
-        Modifier.padding(it)
-        BottomNavGraph(navController = navController)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            screens.forEach { screens ->
+                AddItem(
+                    screen = screens,
+                    destination = currentDestination,
+                    navController = navController
+                )
+            }
+        }
     }
+}
+
+@Composable
+fun currentRoute(navController: NavHostController): String? {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    return navBackStackEntry?.destination?.route
 }
 
 @Composable
@@ -77,41 +103,6 @@ fun BottomNavGraph(
 }
 
 @Composable
-fun BottomBar(navController: NavHostController) {
-    val screens = listOf(
-        NavbarItem.Home,
-        NavbarItem.Camera,
-        NavbarItem.History,
-        NavbarItem.Record
-    )
-
-    val navStackBackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navStackBackEntry?.destination
-
-    Card(
-        shape = RoundedCornerShape(topEnd = 20.dp, topStart = 20.dp),
-        modifier = Modifier
-//            .padding(10.dp)
-            .background(color = Color.Transparent)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            screens.forEach { screens ->
-                AddItem(
-                    screen = screens,
-                    destination = currentDestination,
-                    navController = navController
-                )
-            }
-        }
-    }
-}
-
-@Composable
 fun AddItem(
     screen: NavbarItem,
     destination: NavDestination?,
@@ -122,15 +113,14 @@ fun AddItem(
     val background =
         if (selected) Color.White.copy(alpha = 0.9f) else Color.Transparent
 
-    val contentColor =
-        if (selected) Color.White else Color.Black
+    val iconColor = if (selected) Light_yellow else Color.White
 
     Box(
         modifier = Modifier
-            .padding(start = 10.dp, end = 10.dp, top = 8.dp, bottom = 8.dp)
+            .padding(start = 10.dp, end = 10.dp, top = 11.dp, bottom = 8.dp)
             .height(50.dp)
             .clip(CircleShape)
-            .background(background)
+//            .background(background)
             .clickable(onClick = {
                 navController.navigate(screen.route) {
                     popUpTo(navController.graph.findStartDestination().id)
@@ -147,9 +137,9 @@ fun AddItem(
             Icon(
                 modifier = Modifier
                     .size(50.dp),
-                painter = painterResource(id = if (selected) screen.iconFocused else screen.icon),
+                painter = painterResource(screen.icon),
                 contentDescription = "icon",
-//                tint = contentColor
+                tint = iconColor
             )
 //            AnimatedVisibility(visible = selected) {
 //                Text(
@@ -166,6 +156,6 @@ fun AddItem(
 @Composable
 private fun Preview(){
     Surface(modifier = Modifier.fillMaxSize()) {
-        BottomNavigation()
+//        BottomNavigation()
     }
 }

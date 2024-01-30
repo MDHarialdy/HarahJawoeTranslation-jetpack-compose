@@ -62,6 +62,9 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.navigation:navigation-compose:2.7.6")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.11.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -73,23 +76,32 @@ dependencies {
     implementation("com.google.accompanist:accompanist-pager:0.12.0")
     implementation("com.airbnb.android:lottie-compose:6.3.0")
 
-    ///// LIFECYCLE /////
+    //Lifecycle
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0")
 
-    //// CAMERA STUFF ////
+    //Camera Stuff
     implementation("androidx.camera:camera-camera2:1.3.1")
     implementation("androidx.camera:camera-lifecycle:1.3.1")
     implementation ("androidx.camera:camera-view:1.3.1")
     implementation ("androidx.camera:camera-extensions:1.3.1")
 
-    //// ACCOMPANIST ////
+    //Accompanist
     implementation("com.google.accompanist:accompanist-permissions:0.12.0")
 
-    //Ksp
+    //Ksp (don't update)
     ksp("androidx.room:room-compiler:2.5.0")
 
+    //Preference
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    //ROOM
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation ("androidx.room:room-ktx:2.6.1")
+
+    //Splash Screen
+    implementation("androidx.core:core-splashscreen:1.0.1")
 }
