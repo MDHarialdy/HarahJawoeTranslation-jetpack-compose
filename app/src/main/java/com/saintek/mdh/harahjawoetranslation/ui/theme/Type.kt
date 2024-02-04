@@ -42,3 +42,15 @@ val dm_serif_display = FontFamily(
 val duru_sans = FontFamily(
     Font(R.font.duru_sans)
 )
+
+val gadugi_font = FontFamily(
+    Font(R.font.gadugi_font)
+)
+
+val istok_web = FontFamily(
+    Font(R.font.istok_web_font)
+)
+
+val istok_web_bold = FontFamily(
+    Font(R.font.istok_web_bold)
+)

@@ -10,8 +10,8 @@ import androidx.room.Query
 interface AppDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertHistory(result: HistoryEntity)
+    suspend fun insertHistory(result: RecordEntity)
 
-    @Query("SELECT * FROM historyentity where historyId = :historyId")
-    fun getHistory(historyId: Int): LiveData<List<HistoryEntity>>
+    @Query("SELECT * FROM recordentity where historyId = :historyId")
+    fun getHistory(historyId: Int): LiveData<List<RecordEntity>>
 }

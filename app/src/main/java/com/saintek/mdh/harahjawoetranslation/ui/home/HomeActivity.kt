@@ -10,6 +10,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -25,6 +29,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.saintek.mdh.harahjawoetranslation.R
+import com.saintek.mdh.harahjawoetranslation.data.dummydata.HistoryObjectInit
+import com.saintek.mdh.harahjawoetranslation.ui.component.ItemCamera
+import com.saintek.mdh.harahjawoetranslation.ui.component.ItemHistory
 import com.saintek.mdh.harahjawoetranslation.ui.theme.Light_yellow
 import com.saintek.mdh.harahjawoetranslation.ui.theme.dm_serif_display
 import com.saintek.mdh.harahjawoetranslation.ui.theme.duru_sans
@@ -36,6 +43,8 @@ fun HomeActivity(){
             .fillMaxSize()
             .background(Light_yellow)
     ) {
+
+        //background
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -92,6 +101,7 @@ fun HomeActivity(){
                 }
         }
 
+        //main
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -102,14 +112,57 @@ fun HomeActivity(){
             ),
             elevation = CardDefaults.cardElevation(10.dp)
         ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
 
+//                Text(
+//                    modifier = Modifier
+//                        .padding(start = 15.dp, top = 10.dp),
+//                    fontFamily = gadugi_font,
+//                    fontWeight = FontWeight.Bold,
+//                    style = MaterialTheme.typography.titleLarge,
+//                    text = "Sejarah Harah Jawoe"
+//                )
+                
+                LazyVerticalGrid(
+                    modifier = Modifier
+                        .padding(top = 10.dp),
+                    columns = GridCells.Fixed(2),
+//                    contentPadding = PaddingValues(2.dp)
+                ){
+                    item { ItemCamera() }
+                    item { ItemCamera() }
+                }
+
+                LazyRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ){
+                    items(HistoryObjectInit.history, key = {it.id}){ history ->
+                        ItemHistory(
+                            modifier = Modifier
+                                .padding(start = 14.dp),
+                            image = history.image,
+                            title = history.title,
+                            onClickHistory = {}
+                        )
+                    }
+                }
+
+//                Row(
+//                    modifier = Modifier
+//                        .padding(10.dp)
+//                ) {
+//                    ItemCamera()
+//                    ItemHistory(image = R.drawable.dummy_image_item_history, title = "apapun") {
+//
+//                    }
+//                }
+            }
         }
     }
-}
-
-@Composable
-fun HistoryHome(){
-
 }
 
 @Preview(showSystemUi = true, showBackground = true)

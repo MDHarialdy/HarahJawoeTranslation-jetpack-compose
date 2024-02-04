@@ -10,18 +10,16 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -39,6 +37,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.rememberPermissionState
 import com.saintek.mdh.harahjawoetranslation.R
+import com.saintek.mdh.harahjawoetranslation.ui.theme.Brown
 import com.saintek.mdh.harahjawoetranslation.ui.theme.HarahJawoeTranslationTheme
 import com.saintek.mdh.harahjawoetranslation.ui.util.isCameraGranted
 
@@ -96,33 +95,6 @@ fun CameraScreen(){
 }
 
 @Composable
-fun NoPermissionScreen(
-    onRequestPermission: () -> Unit
-){
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ){
-        Text(text = "Please Grant the Permission to Use Camera")
-        Button(
-            modifier = Modifier
-                .padding(top = 10.dp),
-            onClick = onRequestPermission,
-        ) {
-            Icon(
-                modifier = Modifier
-                    .padding(end = 5.dp)
-                    .size(30.dp),
-                painter = painterResource(id = R.drawable.camera_icon),
-                contentDescription = "Camera Icon"
-            )
-            Text(text = "Grant Permission")
-        }
-    }
-}
-
-@Composable
 fun BottomContent(
     galleryOnclickAction: () -> Unit,
     tutorialOnClickAction: () -> Unit
@@ -130,7 +102,7 @@ fun BottomContent(
     Box(modifier = Modifier
         .fillMaxWidth()
         .wrapContentSize()
-        .background(Color.White)
+        .background(Brown)
     ) {
             Column(
                 modifier = Modifier
@@ -140,14 +112,18 @@ fun BottomContent(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 12.dp, top = 8.dp, bottom = 15.dp, end = 12.dp),
+                        .padding(start = 20.dp, top = 12.dp, bottom = 12.dp, end = 20.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
 
-                    OutlinedButton(
+                    Button(
                         modifier = Modifier,
                         onClick = galleryOnclickAction,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.White,
+                            contentColor = Brown
+                        )
                     ) {
                         Icon(
                             modifier = Modifier
@@ -165,12 +141,19 @@ fun BottomContent(
                         modifier = Modifier
                             .size(60.dp),
                         onClick = {},
-                        border = BorderStroke(10.dp, Color.LightGray)
+                        border = BorderStroke(10.dp, Color.White),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Brown,
+                        )
                     ){}
 
-                    OutlinedButton(
+                    Button(
                         modifier = Modifier,
                         onClick = tutorialOnClickAction,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.White,
+                            contentColor = Brown
+                        )
                     ) {
                         Icon( painter = painterResource(id = R.drawable.baseline_cameraswitch_24) , contentDescription = "Flip Camera")
                     }

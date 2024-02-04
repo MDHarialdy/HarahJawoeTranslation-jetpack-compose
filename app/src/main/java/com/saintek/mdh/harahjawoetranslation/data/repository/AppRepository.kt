@@ -1,7 +1,7 @@
 package com.saintek.mdh.harahjawoetranslation.data.repository
 
 import com.saintek.mdh.harahjawoetranslation.data.database.AppDao
-import com.saintek.mdh.harahjawoetranslation.data.database.HistoryEntity
+import com.saintek.mdh.harahjawoetranslation.data.database.RecordEntity
 import com.saintek.mdh.harahjawoetranslation.data.preferences.AppPref
 
 class AppRepository private constructor(
@@ -10,7 +10,7 @@ class AppRepository private constructor(
 
 ){
 
-    suspend fun insertHistory(history: HistoryEntity) = appDao.insertHistory(history)
+    suspend fun insertHistory(history: RecordEntity) = appDao.insertHistory(history)
 
     fun getHistory(imageId: Int) = appDao.getHistory(imageId)
 

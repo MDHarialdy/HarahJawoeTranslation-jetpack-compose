@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Surface
@@ -22,21 +23,24 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.saintek.mdh.harahjawoetranslation.R
+import com.saintek.mdh.harahjawoetranslation.ui.theme.gadugi_font
 import com.saintek.mdh.harahjawoetranslation.ui.theme.transparent_black
 
 @Composable
 fun ItemHistory(
+    modifier: Modifier = Modifier,
     image: Int,
     title: String,
     onClickHistory: () -> Unit
 ) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .wrapContentSize()
-            .padding(15.dp)
+//            .padding(15.dp)
             .clickable { onClickHistory() },
-        elevation = CardDefaults.cardElevation(7.dp)
+        elevation = CardDefaults.cardElevation(8.dp),
+        shape = RoundedCornerShape(12)
     ) {
         Box(
             modifier = Modifier
@@ -45,7 +49,7 @@ fun ItemHistory(
         ){
             Image(
                 modifier = Modifier
-                    .height(150.dp)
+                    .height(170.dp)
                     .fillMaxSize(),
                 painter = painterResource(id = image),
                 contentDescription = "image history",
@@ -53,6 +57,7 @@ fun ItemHistory(
             )
             Text(
                 text = title,
+                fontFamily = gadugi_font,
                 color = Color.White,
 //                fontFamily = ,
                 modifier = Modifier
@@ -63,12 +68,6 @@ fun ItemHistory(
         }
     }
 }
-
-data class History(
-    val id: Int,
-    val image: Int,
-    val title: String
-)
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable

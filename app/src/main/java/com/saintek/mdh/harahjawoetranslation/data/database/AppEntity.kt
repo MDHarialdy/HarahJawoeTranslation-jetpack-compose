@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class HistoryEntity (
+data class RecordEntity (
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val historyId: Int,
@@ -16,7 +16,7 @@ data class HistoryEntity (
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as HistoryEntity
+        other as RecordEntity
 
         if (id != other.id) return false
         if (!imageByteArray.contentEquals(other.imageByteArray)) return false
